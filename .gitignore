@@ -3,3 +3,8 @@
 
 # Ignore Python Bytecode Files
 *.pyc
+__pycache__/
+.pythonlibs/
+
+# ignore credential file
+auth.json
