@@ -16,12 +16,18 @@ def main(conn, question):
     openai.api_key = auth['api_key']
     print(f"Question: {question}")
 
+    # prompt = f"""
+    
+    # Given the following SQL Schema:{get_schema()}
+    # Write a query using valid SQLite syntax to answer this question: {question}
+    
+    # """
+
     prompt = f"""
-    
-    Given the following SQL Schema:{get_schema()}
-    Write a SQL query to answer this question: {question}
-    
-    """
+Given the following SQL Schema:{get_schema()}
+Write a query using valid SQLite syntax to answer this question: {question}
+If the query involves tables that don't exist or cannot be executed without error, write a select statement that will return only a string describing the error.
+"""
 
     response = openai.Completion.create(
         model="text-davinci-003",
@@ -39,9 +45,23 @@ def main(conn, question):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--query", type=str, default="natural language query")
-    args = parser.parse_args()
+    # parser = argparse.ArgumentParser()
+    # parser.add_argument("--query", type=str, default="natural language query")
+    # args = parser.parse_args()
     conn = create_connection(DATABASE)
 
-    main(conn, question=args.query)
+    q = ""
+    p = """Enter a natural language query.
+Type (q/Q) to stop
+Query: """
+
+    
+    while q not in ["q", "Q"]:
+        print(p, end="")
+        q = input()
+        print()
+        if q not in ["q", "Q"]:
+            main(conn, question=q)
+
+    print("done")
+    # main(conn, question=args.query)

@@ -1,5 +1,5 @@
 # BYU CS452 Natural Language DB with AI 
-Project by Caleb Hill, Jake Shilling, and Kevin Kinney.
+Project by Caleb Hill, Jake Schilling, and Kevin Kinney.
 
 > The following lines are from the template repo.
 ## Example SQL Lite DB with Python Client
